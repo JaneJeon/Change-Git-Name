@@ -17,10 +17,10 @@ class Dir {
 	
 	public static function fix($dir, $name, $newName, $newEmail) {
 		if (Git::isRepo($dir)) {
-			if ($newName || $newEmail)
+			$remote = Git::remote($dir);
+			if ($newName || $newEmail && $remote)
 				Git::fix($dir, $name, $newName, $newEmail);
 			else {
-				$remote = Git::remote($dir);
 				if ($remote && !Git::isValid($dir, $remote))
 					echo "Remote $remote in $dir is invalid!\n";
 			}
