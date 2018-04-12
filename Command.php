@@ -4,8 +4,7 @@ class Command {
 	public static function exec($command, $getExitCode) {
 		$output = [];
 		$exitCode = 0;
-		if ($getExitCode) $command .= ' 2>/dev/null';
-		$result = exec(self::stripWhitespaces($command), $output, $exitCode);
+		$result = exec(self::stripWhitespaces($command).' 2>/dev/null', $output, $exitCode);
 		return $getExitCode ? $exitCode : $result;
 	}
 	

@@ -16,8 +16,6 @@ class Dir {
 	}
 	
 	public static function fix($dir, $name, $newName, $newEmail) {
-		sleep(0.1);
-		
 		if (Git::isRepo($dir)) {
 			if ($newName || $newEmail)
 				Git::fix($dir, $name, $newName, $newEmail);
@@ -26,7 +24,8 @@ class Dir {
 				if ($remote && !Git::isValid($dir, $remote))
 					echo "Remote $remote in $dir is invalid!\n";
 			}
-		} else foreach (self::subDirectories($dir) as $subDirectory)
+		} else
+			foreach (self::subDirectories($dir) as $subDirectory)
 				self::fix($subDirectory, $name, $newName, $newEmail);
 	}
 }
