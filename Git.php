@@ -30,6 +30,8 @@ SH;
 	
 	# https://stackoverflow.com/a/4494037
 	public static function fix($dir, $name, $newName, $newEmail) {
+		echo "Fixing $dir...\n";
+		
 		$change = !$newName ? '' : <<<SH
 export GIT_AUTHOR_NAME="$newName";
 export GIT_COMMITTER_NAME="$newName";
@@ -44,7 +46,7 @@ git filter-branch -f --commit-filter
 		$change
 	fi;
 	git commit-tree "$@"';
-	git push --force
+	git push --set-upstream origin master --force
 SH;
 		self::commit($dir);
 		self::command($dir, $command);
